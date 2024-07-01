@@ -1,4 +1,5 @@
-﻿using YummyFood.Infrastructure;
+﻿using YummyFood.Application;
+using YummyFood.Infrastructure;
 
 namespace YummyFood.API
 {
@@ -17,6 +18,7 @@ namespace YummyFood.API
             services.AddControllers();
 
             services.AddYummyFoodInfrastructureDependencyInjection(configRoot);
+            services.AddYummyFoodApplicationDependencyInjection();
 
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
