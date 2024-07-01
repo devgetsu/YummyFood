@@ -1,4 +1,6 @@
-﻿namespace YummyFood.API
+﻿using YummyFood.Infrastructure;
+
+namespace YummyFood.API
 {
     public class Startup
     {
@@ -13,6 +15,9 @@
         public void ConfigureServices(IServiceCollection services, ILoggingBuilder Logging)
         {
             services.AddControllers();
+
+            services.AddYummyFoodInfrastructureDependencyInjection(configRoot);
+
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
         }
