@@ -9,5 +9,17 @@ namespace YummyFood.Domain.Entities.Auth
 {
     public class UserApp : IdentityUser<long>
     {
+        public string FullName { get; set; }
+        public string Birth { get; set; }
+        public string Gender { get; set; }
+        public string ProfilePhoto { get; set; }
+        public List<Product> Cart { get; set; }
+        public List<Product> Favorite { get; set; }
+        public List<Card> Cards { get; set; }
+        public List<Address> Addresses { get; set; }
+        //public List<Order> OrdersHistory { get; set; }
+        public string? Password { get; set; }
+        public string Role { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

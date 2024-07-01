@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using YummyFood.Application.Abstractions.AuthServices;
 
 namespace YummyFood.Application
 {
@@ -15,6 +16,7 @@ namespace YummyFood.Application
         {
 
             services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddScoped<IAuthService, AuthService>();
 
             return services;
         }
