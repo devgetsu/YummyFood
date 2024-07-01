@@ -9,7 +9,9 @@ namespace YummyFood.Domain.Entities
         public int Rate { get; set; }
         public long UserAppId { get; set; }
         public string? Feedback { get; set; }
+        public long ShopId { get; set; }
 
+        public Shop Shop { get; set; }
         public UserApp UserApp { get; set; }
     }
 }
