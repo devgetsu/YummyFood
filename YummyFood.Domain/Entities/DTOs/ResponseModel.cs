@@ -8,8 +8,8 @@ namespace YummyFood.Domain.Entities.DTOs
 {
     public class ResponseModel
     {
+        public bool IsSuccess { get; set; } = false;
         public string Message { get; set; }
         public int StatusCode { get; set; }
-        public bool IsSuccess { get; set; } = false;
     }
 }
