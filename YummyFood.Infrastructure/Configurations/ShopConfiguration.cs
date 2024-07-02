@@ -13,7 +13,7 @@ namespace YummyFood.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Shop> builder)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
