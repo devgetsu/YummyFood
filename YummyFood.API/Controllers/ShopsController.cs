@@ -29,5 +29,23 @@ namespace YummyFood.API.Controllers
                 throw new Exception(ex.Message, ex);
             }
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteShopAsync(long id, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var command = new DeleteShopCommand()
+                {
+                    Id = id
+                };
+                var result = await _mediator.Send(command, cancellationToken);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
     }
 }
