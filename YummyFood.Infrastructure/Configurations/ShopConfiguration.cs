@@ -13,7 +13,11 @@ namespace YummyFood.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Shop> builder)
         {
-            
+            builder.Property(x => x.Description)
+                .HasColumnType("text");
+
+            builder.Property(x => x.Name)
+                .IsRequired();
         }
     }
 }
