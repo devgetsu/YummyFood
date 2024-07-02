@@ -9,19 +9,21 @@ using YummyFood.Domain.Exceptions;
 
 namespace YummyFood.Application.UseCases.Shops.Handlers
 {
-    public class CreateShopCommandHandler : IRequestHandler<CreateShopCommand, ResponseModel>
+    public class UpdateShopCommandHandler : IRequestHandler<UpdateShopCommand, ResponseModel>
     {
         private readonly IApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public CreateShopCommandHandler(IApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
+        public UpdateShopCommandHandler(IApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public async Task<ResponseModel> Handle(CreateShopCommand request, CancellationToken cancellationToken)
+        public async Task<ResponseModel> Handle(UpdateShopCommand request, CancellationToken cancellationToken)
         {
+            var shop = await _context.Shops.FindAsync(request.Id, cancellationToken) ?? throw new _404NotFoundException("Shop not found!"); ;
+
             try
             {
                 if (request != null)
@@ -65,35 +67,46 @@ namespace YummyFood.Application.UseCases.Shops.Handlers
 
                     catch (Exception ex)
                     {
-                        return new ResponseModel()
-                        {
-                            IsSuccess = false,
-                            StatusCode = 500,
-                            Message = ex.Message,
-                        };
+                        throw new ErrorPostingImage(ex.Message.ToString());
                     }
 
-                    var shop = new Shop()
+
+                    try
                     {
-                        Rate = 0,
-                        Name = request.Name,
-                        Status = request.Status,
-                        AddressId = request.AddressId,
-                        Description = request.Description,
-                        PhoneNumber = request.PhoneNumber,
-                        Photo = "/ShopPhotos/" + fileName,
-                        PreviewPhoto = "/ShopPreviewPhotos/" + fileName2,
-                        TimeTableWeekend = request.TimeTableWeekend,
-                        TimeTableWeekday = request.TimeTableWeekday,
-                    };
-                    await _context.Shops.AddAsync(shop, cancellationToken);
+                        File.Delete(shop.Photo);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                    }
+
+                    try
+                    {
+                        File.Delete(shop.PreviewPhoto);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                    }
+
+                    shop.Name = request.Name;
+                    shop.Status = request.Status;
+                    shop.AddressId = request.AddressId;
+                    shop.Description = request.Description;
+                    shop.PhoneNumber = request.PhoneNumber;
+                    shop.Photo = "/ShopPhotos/" + fileName;
+                    shop.PreviewPhoto = "/ShopPreviewPhotos/" + fileName2;
+                    shop.TimeTableWeekend = request.TimeTableWeekend;
+                    shop.TimeTableWeekday = request.TimeTableWeekday;
+
+                    _context.Shops.Update(shop);
                     await _context.SaveChangesAsync(cancellationToken);
 
                     return new ResponseModel()
                     {
-                        Message = "Created",
                         IsSuccess = true,
-                        StatusCode = 201
+                        Message = "Successfully Updated",
+                        StatusCode = 200,
                     };
                 }
                 else
@@ -104,7 +117,7 @@ namespace YummyFood.Application.UseCases.Shops.Handlers
 
             catch (Exception ex)
             {
-                throw new ErrorCreatingData(ex.Message.ToString());
+                throw new ErrorUpdatingData(ex.Message.ToString());
             }
         }
     }
