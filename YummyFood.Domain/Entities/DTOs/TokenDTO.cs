@@ -8,8 +8,8 @@ namespace YummyFood.Domain.Entities.DTOs
 {
     public class TokenDTO
     {
-        public string Token { get; set; }
+        public bool IsSuccess { get; set; } = false;
         public string Message { get; set; }
-        public bool isSuccess { get; set; }
+        public string Token { get; set; }
     }
 }
