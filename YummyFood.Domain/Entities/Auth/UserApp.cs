@@ -13,8 +13,8 @@ namespace YummyFood.Domain.Entities.Auth
         public string Birth { get; set; }
         public string Gender { get; set; }
         public string ProfilePhoto { get; set; }
-        public List<Product> Cart { get; set; }
-        public List<Product> Favorite { get; set; }
+        public List<long> Cart { get; set; }
+        public List<long> Favorite { get; set; }
         public List<Card> Cards { get; set; }
         public List<Address> Addresses { get; set; }
         //public List<Order> OrdersHistory { get; set; }

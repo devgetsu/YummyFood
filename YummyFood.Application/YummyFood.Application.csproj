@@ -20,8 +20,4 @@
     <ProjectReference Include="..\YummyFood.Domain\YummyFood.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UseCases\Shops\Queries\" />
-  </ItemGroup>
-
 </Project>

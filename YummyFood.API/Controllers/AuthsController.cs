@@ -43,8 +43,7 @@ namespace YummyFood.API.Controllers
                 PhoneNumber = model.PhoneNumber,
                 Password = model.Password,
                 Role = "User"
-                //Birth
-                //Gender
+                
             };
 
             var result = await _userManager.CreateAsync(newUser, model.Password);
