@@ -10,6 +10,10 @@ namespace YummyFood.Application.Abstractions
         DbSet<CommentModel> Comments { get; set; }
         DbSet<Category> Categories { get; set; }
         DbSet<Address> Addresses { get; set; }
+        DbSet<Card> Cards { get; set; }
+        DbSet<Promo> Promos { get; set; }
+        DbSet<SpecialOffer> SpecialOffers { get; set; }
+        DbSet<Discount> Discounts { get; set; }
 
         ValueTask<int> SaveChangesAsync(CancellationToken cancellation = default!);
     }
