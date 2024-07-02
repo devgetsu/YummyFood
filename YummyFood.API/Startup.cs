@@ -94,7 +94,11 @@ namespace YummyFood.API
                         PhoneNumber = phone,
                         Password = password,
                         ProfilePhoto = "https://ih1.redbubble.net/image.2955130987.9629/raf,360x360,075,t,fafafa:ca443f4786.jpg",
-                        Role = "Admin"
+                        Role = "Admin",
+                        Cart = new List<long>(),
+                        Favorite = new List<long>(),
+                        Birth = DateTimeOffset.UtcNow.ToString(),
+                        Gender = "No"
                     };
 
                     userManager.CreateAsync(user, password).Wait();
