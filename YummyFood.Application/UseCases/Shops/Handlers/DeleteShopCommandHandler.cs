@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 using YummyFood.Application.Abstractions;
 using YummyFood.Application.UseCases.Shops.Commands;
 using YummyFood.Domain.Entities;
+using YummyFood.Domain.Entities.DTOs;
 using YummyFood.Domain.Exceptions;
 
 namespace YummyFood.Application.UseCases.Shops.Handlers
 {
-    public class DeleteShopCommandHandler : IRequestHandler<DeleteShopCommand, Shop>
+    public class DeleteShopCommandHandler : IRequestHandler<DeleteShopCommand, ResponseModel>
     {
         private readonly IApplicationDbContext _context;
 
@@ -20,11 +21,21 @@ namespace YummyFood.Application.UseCases.Shops.Handlers
             _context = context;
         }
 
-        public async Task<Shop> Handle(DeleteShopCommand request, CancellationToken cancellationToken)
+        public async Task<ResponseModel> Handle(DeleteShopCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                var shop = await _context.Shops.FindAsync(request.Id) ?? throw new _404NotFoundException("Shop not found!");
+                var shop = await _context.Shops.FindAsync(request.Id);
+
+                if (shop is null)
+                {
+                    return new ResponseModel()
+                    {
+                        Message = "Not found",
+                        IsSuccess = false,
+                        StatusCode = 404
+                    };
+                }
 
                 _context.Shops.Remove(shop);
 
@@ -47,7 +58,12 @@ namespace YummyFood.Application.UseCases.Shops.Handlers
                 }
 
                 await _context.SaveChangesAsync(cancellationToken);
-                return shop;
+                return new ResponseModel()
+                {
+                    IsSuccess = true,
+                    Message = "Successfully Deleted",
+                    StatusCode = 200
+                };
             }
             catch (Exception ex)
             {

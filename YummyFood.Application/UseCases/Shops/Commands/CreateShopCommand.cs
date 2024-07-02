@@ -1,11 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using YummyFood.Domain.Entities;
+using YummyFood.Domain.Entities.DTOs;
 using YummyFood.Domain.Enums;
 
 namespace YummyFood.Application.UseCases.Shops.Commands
 {
-    public class CreateShopCommand : IRequest<Shop>
+    public class CreateShopCommand : IRequest<ResponseModel>
     {
         public long AddressId { get; set; }
         public string Name { get; set; }
