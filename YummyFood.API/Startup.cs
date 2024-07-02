@@ -82,16 +82,16 @@ namespace YummyFood.API
                 var userManager =
                     scope.ServiceProvider.GetRequiredService<UserManager<UserApp>>();
 
-                string phoneNumber = "+998900246136";
+                string phone = "+998900246136";
                 string password = "Admin01!";
 
-                if (userManager.FindByPhoneNumberAsync(phoneNumber).Result == null)
+                if (userManager.FindByPhoneNumberAsync(phone).Result == null)
                 {
                     var user = new UserApp()
                     {
                         UserName = "Admin",
                         FullName = "Admin",
-                        PhoneNumber = "+998777777777",
+                        PhoneNumber = phone,
                         Password = password,
                         ProfilePhoto = "https://ih1.redbubble.net/image.2955130987.9629/raf,360x360,075,t,fafafa:ca443f4786.jpg",
                         Role = "Admin"
