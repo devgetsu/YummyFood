@@ -7,7 +7,6 @@ namespace YummyFood.Application.UseCases.Shops.Commands
 {
     public class CreateShopCommand : IRequest<Shop>
     {
-        public int Rate { get; set; }
         public long AddressId { get; set; }
         public string Name { get; set; }
         public IFormFile Photo { get; set; }

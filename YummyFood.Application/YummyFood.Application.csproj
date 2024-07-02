@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UseCases\Shops\Handlers\" />
     <Folder Include="UseCases\Shops\Queries\" />
   </ItemGroup>
 
