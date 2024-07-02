@@ -1,12 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using YummyFood.Application.Abstractions;
 using YummyFood.Application.UseCases.Shops.Commands;
 using YummyFood.Domain.Entities;
-using YummyFood.Domain.Entities.DTOs;
-using YummyFood.Domain.Enums;
 using YummyFood.Domain.Exceptions;
 
 namespace YummyFood.Application.UseCases.Shops.Handlers
@@ -65,9 +62,9 @@ namespace YummyFood.Application.UseCases.Shops.Handlers
                         }
                     }
 
-                    catch
+                    catch (Exception ex)
                     {
-                        throw;
+                        throw new ErrorPostingImage(ex.Message.ToString());
                     }
 
                     var shop = new Shop()
@@ -90,13 +87,13 @@ namespace YummyFood.Application.UseCases.Shops.Handlers
                 }
                 else
                 {
-                    throw new RequestNullException("Request is null.");
+                    throw new RequestNullException("Request is null here.");
                 }
             }
 
             catch (Exception ex)
             {
-                throw;
+                throw new ErrorCreatingData(ex.Message.ToString());
             }
         }
     }
