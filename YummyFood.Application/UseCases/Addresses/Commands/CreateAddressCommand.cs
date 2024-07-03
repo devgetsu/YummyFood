@@ -8,8 +8,11 @@ using YummyFood.Domain.Entities.DTOs;
 
 namespace YummyFood.Application.UseCases.Addresses.Commands
 {
-    public class CreateAddressModel : IRequest<ResponseModel>
+    public class CreateAddressCommand : IRequest<ResponseModel>
     {
-
+        public string? Name { get; set; }
+        public long Letitude { get; set; }
+        public long Longitude { get; set; }
+        public long UserId { get; set; }
     }
 }

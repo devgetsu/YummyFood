@@ -50,7 +50,7 @@ namespace YummyFood.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> DeleteShopAsync(UpdateShopCommand command, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateShopAsync(UpdateShopCommand command, CancellationToken cancellationToken)
         {
             try
             {
