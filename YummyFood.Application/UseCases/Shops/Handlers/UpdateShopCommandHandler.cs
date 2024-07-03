@@ -98,6 +98,7 @@ namespace YummyFood.Application.UseCases.Shops.Handlers
                     shop.PreviewPhoto = "/ShopPreviewPhotos/" + fileName2;
                     shop.TimeTableWeekend = request.TimeTableWeekend;
                     shop.TimeTableWeekday = request.TimeTableWeekday;
+                    shop.ModifiedAt = DateTimeOffset.UtcNow;
 
                     _context.Shops.Update(shop);
                     await _context.SaveChangesAsync(cancellationToken);

@@ -49,6 +49,20 @@ namespace YummyFood.API.Controllers
             }
         }
 
+        [HttpPut]
+        public async Task<IActionResult> DeleteShopAsync(UpdateShopCommand command, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var result = await _mediator.Send(command, cancellationToken);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAllShopsWithPaginationAsync([FromQuery] int index, [FromQuery] int size, CancellationToken cancellationToken)
         {
