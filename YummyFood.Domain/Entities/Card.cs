@@ -11,7 +11,8 @@ namespace YummyFood.Domain.Entities
     public class Card : AudiTable
     {
         public string Number { get; set; }
-        public int CVV { get; set; }
+        public string Expired { get; set; }
+        public short CVV { get; set; }
         public long UserId { get; set; }
         public UserApp User { get; set; }
     }

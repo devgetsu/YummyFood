@@ -15,6 +15,12 @@ namespace YummyFood.Infrastructure.Configurations
         {
             builder.Property(x => x.Number)
                 .HasMaxLength(16);
+
+            builder.Property(x => x.Expired)
+                .HasMaxLength(5);
+
+            builder.Property(x => x.CVV)
+                .HasMaxLength(3);
         }
     }
 }
