@@ -55,7 +55,7 @@ namespace YummyFood.Application.UseCases.Addresses.Handlers
                     IsSuccess = false,
                     Message = ex.Message,
                     StatusCode = 400
-                }
+                };
             }
         }
     }
