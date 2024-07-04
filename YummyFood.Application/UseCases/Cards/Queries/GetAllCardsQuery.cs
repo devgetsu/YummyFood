@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using YummyFood.Domain.Entities;
 
 namespace YummyFood.Application.UseCases.Cards.Queries
 {
-    public class GetAllCardsQuery
+    public class GetAllCardsQuery : IRequest<IEnumerable<Card>>
     {
     }
 }
