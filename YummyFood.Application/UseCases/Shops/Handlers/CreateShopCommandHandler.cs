@@ -85,7 +85,7 @@ namespace YummyFood.Application.UseCases.Shops.Handlers
                         PreviewPhoto = "/ShopPreviewPhotos/" + fileName2,
                         TimeTableWeekend = request.TimeTableWeekend,
                         TimeTableWeekday = request.TimeTableWeekday,
-                        CreatedAt = DateTimeOffset.UtcNow,
+                        CreatedAt = DateTimeOffset.UtcNow
                     };
                     await _context.Shops.AddAsync(shop, cancellationToken);
                     await _context.SaveChangesAsync(cancellationToken);
@@ -99,7 +99,7 @@ namespace YummyFood.Application.UseCases.Shops.Handlers
                 }
                 else
                 {
-                    throw new RequestNullException("Request is null here.");
+                    throw new RequestNullException("Request is null here!");
                 }
             }
 

@@ -10,6 +10,9 @@ namespace YummyFood.Application.UseCases.Cards.Commands
 {
     public class CreateCardCommand : IRequest<ResponseModel>
     {
-
+        public string Number { get; set; }
+        public string Expired { get; set; }
+        public short CVV { get; set; }
+        public long UserId { get; set; }
     }
 }

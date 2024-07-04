@@ -18,7 +18,7 @@ namespace YummyFood.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateShopAscyn([FromForm] CreateShopCommand command, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateShopAsync([FromForm] CreateShopCommand command, CancellationToken cancellationToken)
         {
             try
             {

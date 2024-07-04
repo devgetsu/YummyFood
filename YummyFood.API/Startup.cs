@@ -44,6 +44,8 @@ namespace YummyFood.API
                 .AddEntityFrameworkStores<YummyFoodDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddMemoryCache();
+
             services.AddControllers();
 
             services.AddEndpointsApiExplorer();
@@ -110,7 +112,6 @@ namespace YummyFood.API
                     };
 
                     userManager.CreateAsync(user, password).Wait();
-
                     userManager.AddToRoleAsync(user, "Admin").Wait();
                 }
             }
