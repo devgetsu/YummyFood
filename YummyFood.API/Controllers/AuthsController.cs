@@ -17,14 +17,12 @@ namespace YummyFood.API.Controllers
         private readonly UserManager<UserApp> _userManager;
         private readonly SignInManager<UserApp> _signInManager;
         private readonly IAuthService _authService;
-        private readonly Random _random;
 
-        public AuthsController(UserManager<UserApp> userManager, SignInManager<UserApp> signInManager, IAuthService authService, Random random)
+        public AuthsController(UserManager<UserApp> userManager, SignInManager<UserApp> signInManager, IAuthService authService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _authService = authService;
-            _random = random;
         }
 
         [HttpPost("SignUp")]
@@ -37,7 +35,6 @@ namespace YummyFood.API.Controllers
 
             var newUser = new UserApp()
             {
-                Id = _random.NextInt64(),
                 UserName = model.FullName.Split(" ")[0],
                 FullName = model.FullName,
                 PhoneNumber = model.PhoneNumber,
@@ -111,7 +108,6 @@ namespace YummyFood.API.Controllers
             {
                 user = new UserApp()
                 {
-                    Id = _random.NextInt64(),
                     UserName = model.FirstName + model.LastName,
                     FullName = model.FirstName + model.LastName,
                     Email = model.Email,

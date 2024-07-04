@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using YummyFood.Application.UseCases.Cards.Commands;
+using YummyFood.Application.UseCases.Cards.Queries;
 
 namespace YummyFood.API.Controllers
 {
@@ -32,15 +34,10 @@ namespace YummyFood.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCardAsync(long id, CancellationToken cancellationToken)
+        public async Task<IActionResult> DeleteCardAsync(DeleteCardCommand model, CancellationToken cancellationToken)
         {
             try
             {
-                var model = new DeleteCardCommand()
-                {
-                    Id = id
-                };
-
                 var result = await _mediator.Send(model, cancellationToken);
                 
                 return Ok(result);
@@ -52,11 +49,12 @@ namespace YummyFood.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateCardAsync(UpdateCardCommand command, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateCardAsync(UpdateCardCommand model, CancellationToken cancellationToken)
         {
             try
             {
-                var result = await _mediator.Send(command, cancellationToken);
+                var result = await _mediator.Send(model, cancellationToken);
+
                 return Ok(result);
             }
             catch (Exception ex)
@@ -66,22 +64,34 @@ namespace YummyFood.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllShopsWithPaginationAsync([FromQuery] int index, [FromQuery] int size, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAllCardsAsync(CancellationToken cancellationToken)
         {
             try
             {
-                var command = new GetAllShopsWithPaginationQuery()
-                {
-                    PageIndex = index,
-                    PageSize = size
-                };
-                var result = await _mediator.Send(command, cancellationToken);
+                var result = await _mediator.Send(new GetAllCardsQuery(), cancellationToken);
+
                 return Ok(result);
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message, ex);
             }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCardByIdAsync(GetCardByIdQuery model, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(model.Id, cancellationToken);
+
+            return Ok(result);
+        }
+
+        [HttpGet("Number")]
+        public async Task<IActionResult> GetCardByNumberAsync(GetCardByNumberQuery model, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(model.Number, cancellationToken);
+
+            return Ok(result);
         }
     }
 }

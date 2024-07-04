@@ -44,8 +44,6 @@ namespace YummyFood.API
                 .AddEntityFrameworkStores<YummyFoodDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddMemoryCache();
-
             services.AddControllers();
 
             services.AddEndpointsApiExplorer();
