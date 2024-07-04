@@ -24,7 +24,6 @@ namespace YummyFood.Application.UseCases.Cards.Handlers.CommandHandlers
                 {
                     var card = new Card()
                     {
-                        //Id =
                         Number = request.Number,
                         Expired = request.Expired,
                         CVV = request.CVV,

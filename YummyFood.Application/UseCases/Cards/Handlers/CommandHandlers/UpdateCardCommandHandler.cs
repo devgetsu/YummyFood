@@ -52,4 +52,3 @@ namespace YummyFood.Application.UseCases.Cards.Handlers.CommandHandlers
         }
     }
 }
-}

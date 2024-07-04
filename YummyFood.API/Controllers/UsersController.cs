@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using YummyFood.Application.Abstractions.AuthServices;
 using YummyFood.Domain.Entities.Auth;
 
 namespace YummyFood.API.Controllers
@@ -21,7 +19,7 @@ namespace YummyFood.API.Controllers
         }
 
         [HttpGet]
-        public async Task<List<UserApp>> GetAll()
+        public async Task<IEnumerable<UserApp>> GetAll()
         {
             var result = await _userManager.Users.ToListAsync();
 
