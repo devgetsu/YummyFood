@@ -24,101 +24,93 @@ namespace YummyFood.Application.UseCases.Shops.Handlers
         {
             var shop = await _context.Shops.FindAsync(request.Id, cancellationToken) ?? throw new _404NotFoundException("Shop not found!"); ;
 
-            try
+            if (request != null)
             {
-                if (request != null)
+                var file = request.Photo;
+                var file2 = request.PreviewPhoto;
+                string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "ShopPhotos");
+                string fileName = "";
+
+                string filePath2 = Path.Combine(_webHostEnvironment.WebRootPath, "ShopPreviewPhotos");
+                string fileName2 = "";
+
+                try
                 {
-                    var file = request.Photo;
-                    var file2 = request.PreviewPhoto;
-                    string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "ShopPhotos");
-                    string fileName = "";
-
-                    string filePath2 = Path.Combine(_webHostEnvironment.WebRootPath, "ShopPreviewPhotos");
-                    string fileName2 = "";
-
-                    try
+                    if (!Directory.Exists(filePath))
                     {
-                        if (!Directory.Exists(filePath))
-                        {
-                            Directory.CreateDirectory(filePath);
-                            Debug.WriteLine("Directory created successfully.");
-                        }
-
-                        if (!Directory.Exists(filePath2))
-                        {
-                            Directory.CreateDirectory(filePath2);
-                            Debug.WriteLine("Directory created successfully.");
-                        }
-
-                        fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                        filePath = Path.Combine(_webHostEnvironment.WebRootPath, "ShopPhotos", fileName);
-                        using (var stream = new FileStream(filePath, FileMode.Create))
-                        {
-                            await file.CopyToAsync(stream);
-                        }
-
-                        fileName2 = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                        filePath2 = Path.Combine(_webHostEnvironment.WebRootPath, "ShopPreviewPhotos", fileName);
-                        using (var stream = new FileStream(filePath2, FileMode.Create))
-                        {
-                            await file.CopyToAsync(stream);
-                        }
+                        Directory.CreateDirectory(filePath);
+                        Debug.WriteLine("Directory created successfully.");
                     }
 
-                    catch (Exception ex)
+                    if (!Directory.Exists(filePath2))
                     {
-                        throw new ErrorPostingImage(ex.Message.ToString());
+                        Directory.CreateDirectory(filePath2);
+                        Debug.WriteLine("Directory created successfully.");
                     }
 
-
-                    try
+                    fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    filePath = Path.Combine(_webHostEnvironment.WebRootPath, "ShopPhotos", fileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
                     {
-                        File.Delete(shop.Photo);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.ToString());
+                        await file.CopyToAsync(stream);
                     }
 
-                    try
+                    fileName2 = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    filePath2 = Path.Combine(_webHostEnvironment.WebRootPath, "ShopPreviewPhotos", fileName);
+                    using (var stream = new FileStream(filePath2, FileMode.Create))
                     {
-                        File.Delete(shop.PreviewPhoto);
+                        await file.CopyToAsync(stream);
                     }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.ToString());
-                    }
-
-                    shop.Name = request.Name;
-                    shop.Status = request.Status;
-                    shop.AddressId = request.AddressId;
-                    shop.Description = request.Description;
-                    shop.PhoneNumber = request.PhoneNumber;
-                    shop.Photo = "/ShopPhotos/" + fileName;
-                    shop.PreviewPhoto = "/ShopPreviewPhotos/" + fileName2;
-                    shop.TimeTableWeekend = request.TimeTableWeekend;
-                    shop.TimeTableWeekday = request.TimeTableWeekday;
-                    shop.ModifiedAt = DateTimeOffset.UtcNow;
-
-                    _context.Shops.Update(shop);
-                    await _context.SaveChangesAsync(cancellationToken);
-
-                    return new ResponseModel()
-                    {
-                        IsSuccess = true,
-                        Message = "Successfully Updated",
-                        StatusCode = 200,
-                    };
                 }
-                else
+
+                catch (Exception ex)
                 {
-                    throw new RequestNullException("Request is null here.");
+                    throw new ErrorPostingImage(ex.Message.ToString());
                 }
+
+
+                try
+                {
+                    File.Delete(Path.Combine(_webHostEnvironment.WebRootPath, shop.Photo));
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+
+                try
+                {
+                    File.Delete(Path.Combine(_webHostEnvironment.WebRootPath, shop.PreviewPhoto));
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+
+                shop.Name = request.Name;
+                shop.Status = request.Status;
+                shop.AddressId = request.AddressId;
+                shop.Description = request.Description;
+                shop.PhoneNumber = request.PhoneNumber;
+                shop.Photo = "/ShopPhotos/" + fileName;
+                shop.PreviewPhoto = "/ShopPreviewPhotos/" + fileName2;
+                shop.TimeTableWeekend = request.TimeTableWeekend;
+                shop.TimeTableWeekday = request.TimeTableWeekday;
+                shop.ModifiedAt = DateTimeOffset.UtcNow;
+
+                _context.Shops.Update(shop);
+                await _context.SaveChangesAsync(cancellationToken);
+
+                return new ResponseModel()
+                {
+                    IsSuccess = true,
+                    Message = "Successfully Updated",
+                    StatusCode = 200,
+                };
             }
-
-            catch (Exception ex)
+            else
             {
-                throw new ErrorUpdatingData(ex.Message.ToString());
+                throw new RequestNullException("Request is null here.");
             }
         }
     }

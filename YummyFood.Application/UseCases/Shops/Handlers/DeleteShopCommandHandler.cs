@@ -23,52 +23,45 @@ namespace YummyFood.Application.UseCases.Shops.Handlers
 
         public async Task<ResponseModel> Handle(DeleteShopCommand request, CancellationToken cancellationToken)
         {
-            try
+            var shop = await _context.Shops.FindAsync(request.Id);
+
+            if (shop is null)
             {
-                var shop = await _context.Shops.FindAsync(request.Id);
-
-                if (shop is null)
-                {
-                    return new ResponseModel()
-                    {
-                        Message = "Not found",
-                        IsSuccess = false,
-                        StatusCode = 404
-                    };
-                }
-
-                _context.Shops.Remove(shop);
-
-                try
-                {
-                    File.Delete(shop.Photo);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Failed to delete photo: {ex.Message}");
-                }
-
-                try
-                {
-                    File.Delete(shop.PreviewPhoto);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Failed to delete preview photo: {ex.Message}");
-                }
-
-                await _context.SaveChangesAsync(cancellationToken);
                 return new ResponseModel()
                 {
-                    IsSuccess = true,
-                    Message = "Successfully Deleted",
-                    StatusCode = 200
+                    Message = "Not found",
+                    IsSuccess = false,
+                    StatusCode = 404
                 };
+            }
+
+            _context.Shops.Remove(shop);
+
+            try
+            {
+                File.Delete(shop.Photo);
             }
             catch (Exception ex)
             {
-                throw new ErrorDeletingData(ex.Message);
+                Console.WriteLine($"Failed to delete photo: {ex.Message}");
             }
+
+            try
+            {
+                File.Delete(shop.PreviewPhoto);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to delete preview photo: {ex.Message}");
+            }
+
+            await _context.SaveChangesAsync(cancellationToken);
+            return new ResponseModel()
+            {
+                IsSuccess = true,
+                Message = "Successfully Deleted",
+                StatusCode = 200
+            };
         }
     }
 }
