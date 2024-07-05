@@ -12,7 +12,7 @@ namespace YummyFood.Application.Abstractions
         DbSet<Address> Addresses { get; set; }
         DbSet<Card> Cards { get; set; }
         DbSet<PromoModel> Promos { get; set; }
-        DbSet<SpecialOffer> SpecialOffers { get; set; }
+        DbSet<SpecialOfferModel> SpecialOffers { get; set; }
         DbSet<Discount> Discounts { get; set; }
 
         ValueTask<int> SaveChangesAsync(CancellationToken cancellation = default!);

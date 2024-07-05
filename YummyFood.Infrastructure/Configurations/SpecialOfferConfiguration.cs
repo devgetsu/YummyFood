@@ -9,9 +9,9 @@ using YummyFood.Domain.Entities;
 
 namespace YummyFood.Infrastructure.Configurations
 {
-    public class SpecialOfferConfiguration : IEntityTypeConfiguration<SpecialOffer>
+    public class SpecialOfferConfiguration : IEntityTypeConfiguration<SpecialOfferModel>
     {
-        public void Configure(EntityTypeBuilder<SpecialOffer> builder)
+        public void Configure(EntityTypeBuilder<SpecialOfferModel> builder)
         {
             builder.Property(x => x.Subtitle)
                 .IsRequired().HasMaxLength(30);
