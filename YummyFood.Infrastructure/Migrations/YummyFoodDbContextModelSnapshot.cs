@@ -194,11 +194,9 @@ namespace YummyFood.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Birth")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<List<long>>("Cart")
-                        .IsRequired()
                         .HasColumnType("bigint[]");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -213,7 +211,6 @@ namespace YummyFood.Infrastructure.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<List<long>>("Favorite")
-                        .IsRequired()
                         .HasColumnType("bigint[]");
 
                     b.Property<string>("FullName")
@@ -221,7 +218,6 @@ namespace YummyFood.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Gender")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
@@ -251,7 +247,6 @@ namespace YummyFood.Infrastructure.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("ProfilePhoto")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Role")
