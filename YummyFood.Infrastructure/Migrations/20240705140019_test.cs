@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace YummyFood.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class login : Migration
+    public partial class test : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,11 +35,11 @@ namespace YummyFood.Infrastructure.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     FullName = table.Column<string>(type: "text", nullable: false),
-                    Birth = table.Column<string>(type: "text", nullable: false),
-                    Gender = table.Column<string>(type: "text", nullable: false),
-                    ProfilePhoto = table.Column<string>(type: "text", nullable: false),
-                    Cart = table.Column<List<long>>(type: "bigint[]", nullable: false),
-                    Favorite = table.Column<List<long>>(type: "bigint[]", nullable: false),
+                    Birth = table.Column<string>(type: "text", nullable: true),
+                    Gender = table.Column<string>(type: "text", nullable: true),
+                    ProfilePhoto = table.Column<string>(type: "text", nullable: true),
+                    Cart = table.Column<List<long>>(type: "bigint[]", nullable: true),
+                    Favorite = table.Column<List<long>>(type: "bigint[]", nullable: true),
                     Password = table.Column<string>(type: "text", nullable: true),
                     Role = table.Column<string>(type: "text", nullable: false),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
