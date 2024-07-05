@@ -7,7 +7,7 @@ using YummyFood.Domain.Common;
 
 namespace YummyFood.Domain.Entities
 {
-    public class SpecialOffer : AudiTable
+    public class SpecialOfferModel : AudiTable
     {
         public string Title { get; set; }
         public string Subtitle { get; set; }
