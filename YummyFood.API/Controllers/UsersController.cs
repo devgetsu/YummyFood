@@ -12,12 +12,10 @@ namespace YummyFood.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserManager<UserApp> _userManager;
-        private readonly SignInManager<UserApp> _signInManager;
 
-        public UsersController(UserManager<UserApp> userManager, SignInManager<UserApp> signInManager)
+        public UsersController(UserManager<UserApp> userManager)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
         }
 
         [HttpGet]
@@ -40,9 +38,9 @@ namespace YummyFood.API.Controllers
         }
 
         [HttpPut]
-        public async Task<ResponseModel> Update(long id, UserApp user)
+        public async Task<ResponseModel> Update(UserApp user)
         {
-            var model = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
+            var model = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == user.Id);
 
             if (model == null)
                 throw new Exception();
@@ -58,7 +56,7 @@ namespace YummyFood.API.Controllers
             model.Cards = user.Cards;
             model.Role = user.Role;
 
-            //await _userManager.Users.
+            await _userManager.UpdateAsync(model);
 
             return new ResponseModel()
             {
@@ -76,9 +74,7 @@ namespace YummyFood.API.Controllers
             if (model == null)
                 throw new Exception();
 
-            model.IsDeleted = true;
-
-            //await _userManager.Users.
+            await _userManager.DeleteAsync(model);
 
             return new ResponseModel()
             {

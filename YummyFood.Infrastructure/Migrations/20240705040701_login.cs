@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace YummyFood.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class test : Migration
+    public partial class login : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -42,7 +42,6 @@ namespace YummyFood.Infrastructure.Migrations
                     Favorite = table.Column<List<long>>(type: "bigint[]", nullable: false),
                     Password = table.Column<string>(type: "text", nullable: true),
                     Role = table.Column<string>(type: "text", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -86,8 +85,7 @@ namespace YummyFood.Infrastructure.Migrations
                     Persentage = table.Column<int>(type: "integer", maxLength: 5, nullable: false),
                     ExpireDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
+                    ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -103,8 +101,7 @@ namespace YummyFood.Infrastructure.Migrations
                     Code = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
                     Condition = table.Column<string>(type: "text", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
+                    ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -120,8 +117,7 @@ namespace YummyFood.Infrastructure.Migrations
                     Title = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
                     Subtitle = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
+                    ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -263,11 +259,11 @@ namespace YummyFood.Infrastructure.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Number = table.Column<string>(type: "character varying(16)", maxLength: 16, nullable: false),
-                    CVV = table.Column<int>(type: "integer", nullable: false),
+                    Expired = table.Column<string>(type: "character varying(5)", maxLength: 5, nullable: false),
+                    CVV = table.Column<short>(type: "smallint", maxLength: 3, nullable: false),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
+                    ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -292,8 +288,7 @@ namespace YummyFood.Infrastructure.Migrations
                     Picture = table.Column<string>(type: "text", nullable: false),
                     CategoryId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
+                    ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -323,8 +318,7 @@ namespace YummyFood.Infrastructure.Migrations
                     TimeTableWeekend = table.Column<string>(type: "text", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
+                    ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -348,8 +342,7 @@ namespace YummyFood.Infrastructure.Migrations
                     Feedback = table.Column<string>(type: "text", nullable: true),
                     ShopId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
+                    ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
