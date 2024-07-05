@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Messager.EskizUz;
+using Microsoft.AspNetCore.Identity;
 using YummyFood.API.Extensions;
 using YummyFood.Application;
 using YummyFood.Domain.Entities.Auth;
@@ -31,6 +32,13 @@ namespace YummyFood.API
 
             services.AddYummyFoodApplicationDependencyInjection();
             services.AddYummyFoodInfrastructureDependencyInjection(configRoot);
+
+            services.AddScoped<MessagerAgent>(provider =>
+            {
+                var email = configRoot.GetSection("MessangerAgentSettings").GetValue<string>("Email")!;
+                var key = configRoot.GetSection("MessangerAgentSettings").GetValue<string>("Key")!;
+                return new MessagerAgent(email, key);
+            });
 
             services.AddIdentity<UserApp, IdentityRole<long>>()
                 .AddEntityFrameworkStores<YummyFoodDbContext>()
@@ -102,7 +110,6 @@ namespace YummyFood.API
                     };
 
                     userManager.CreateAsync(user, password).Wait();
-
                     userManager.AddToRoleAsync(user, "Admin").Wait();
                 }
             }

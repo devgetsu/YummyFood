@@ -18,7 +18,7 @@ namespace YummyFood.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateShopAscyn([FromForm] CreateShopCommand command, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateShopAsync([FromForm] CreateShopCommand command, CancellationToken cancellationToken)
         {
             try
             {
@@ -40,6 +40,20 @@ namespace YummyFood.API.Controllers
                 {
                     Id = id
                 };
+                var result = await _mediator.Send(command, cancellationToken);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateShopAsync(UpdateShopCommand command, CancellationToken cancellationToken)
+        {
+            try
+            {
                 var result = await _mediator.Send(command, cancellationToken);
                 return Ok(result);
             }

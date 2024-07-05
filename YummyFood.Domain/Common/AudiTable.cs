@@ -10,6 +10,5 @@ namespace YummyFood.Domain.Common
     {
         public DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset ModifiedAt { get; set; }
-        public DateTimeOffset DeletedAt { get; set; }
     }
 }
