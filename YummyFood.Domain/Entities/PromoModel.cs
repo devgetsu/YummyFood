@@ -2,7 +2,7 @@
 
 namespace YummyFood.Domain.Entities
 {
-    public class Promo : AudiTable
+    public class PromoModel : AudiTable
     {
         public string Code { get; set; }
         public string Condition { get; set; }
