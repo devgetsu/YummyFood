@@ -6,12 +6,12 @@ namespace YummyFood.Domain.Entities
 {
     public class CommentModel : AudiTable
     {
-        public int Rate { get; set; }
-        public long UserAppId { get; set; }
+        public short Rate { get; set; }
         public string? Feedback { get; set; }
         public long ShopId { get; set; }
+        public long UserId { get; set; }
 
         public Shop Shop { get; set; }
-        public UserApp UserApp { get; set; }
+        public UserApp User { get; set; }
     }
 }
