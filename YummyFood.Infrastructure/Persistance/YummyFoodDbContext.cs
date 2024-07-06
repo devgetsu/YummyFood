@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using System.Reflection.Emit;
 using YummyFood.Application.Abstractions;
 using YummyFood.Domain.Entities;
 using YummyFood.Domain.Entities.Auth;
@@ -30,6 +31,16 @@ namespace YummyFood.Infrastructure.Persistance
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            builder.Entity<Order>()
+            .HasOne(o => o.User)
+            .WithMany()
+            .HasForeignKey(o => o.Id);
+
+            builder.Entity<Order>()
+                .HasOne(o => o.Restaurant)
+                .WithMany()
+                .HasForeignKey(o => o.Id);
 
             base.OnModelCreating(builder);
         }

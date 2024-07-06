@@ -398,10 +398,7 @@ namespace YummyFood.Infrastructure.Migrations
             modelBuilder.Entity("YummyFood.Domain.Entities.Order", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -419,6 +416,9 @@ namespace YummyFood.Infrastructure.Migrations
                     b.Property<decimal>("QuantityPrice")
                         .HasColumnType("numeric");
 
+                    b.Property<int>("RestaurantId")
+                        .HasColumnType("integer");
+
                     b.Property<decimal>("ShippingFree")
                         .HasColumnType("numeric");
 
@@ -427,6 +427,9 @@ namespace YummyFood.Infrastructure.Migrations
 
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("numeric");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -673,6 +676,25 @@ namespace YummyFood.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Shop");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("YummyFood.Domain.Entities.Order", b =>
+                {
+                    b.HasOne("YummyFood.Domain.Entities.Auth.UserApp", "User")
+                        .WithMany()
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("YummyFood.Domain.Entities.Shop", "Restaurant")
+                        .WithMany()
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Restaurant");
 
                     b.Navigation("User");
                 });
