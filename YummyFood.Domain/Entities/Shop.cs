@@ -5,7 +5,7 @@ namespace YummyFood.Domain.Entities
 {
     public class Shop : AudiTable
     {
-        public int Rate { get; set; }
+        public short Rate { get; set; }
         public long AddressId { get; set; }
         public string Name { get; set; }
         public string Photo { get; set; }
