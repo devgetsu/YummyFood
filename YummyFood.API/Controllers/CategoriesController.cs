@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using YummyFood.Application.UseCases.Categories.Commands;
 using YummyFood.Application.UseCases.Categories.Queries;

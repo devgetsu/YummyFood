@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using YummyFood.Application.Abstractions;
 using YummyFood.Infrastructure.Persistance;
 
@@ -19,7 +14,7 @@ namespace YummyFood.Infrastructure
             {
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnenction"));
             });
-            
+
             return services;
         }
     }
