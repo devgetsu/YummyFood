@@ -11,16 +11,16 @@ namespace YummyFood.Domain.Entities
 {
     public class Order : AudiTable
     {
-        public OrderStatus Status { get; set; }
-        public List<long> Products { get; set; }
-        public decimal QuantityPrice { get; set; }
-        public decimal ShippingFree { get; set; }
-        public decimal TotalPrice { get; set; }
         public long UserId { get; set; }
-        public int RestaurantId { get; set; }
+        public long RestaurantId { get; set; }
+        public decimal ShippingFree { get; set; }
+        public decimal TotalAmount { get; set; }
 
         public UserApp User { get; set; }
         public Shop Restaurant { get; set; }
+        public OrderStatus Status { get; set; }
+        public List<OrderItem> Products { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
+        public DateTime OrderTime { get; set; } = DateTime.UtcNow;
     }
 }

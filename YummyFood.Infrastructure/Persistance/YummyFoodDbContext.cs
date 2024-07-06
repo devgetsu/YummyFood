@@ -26,7 +26,7 @@ namespace YummyFood.Infrastructure.Persistance
         public DbSet<PromoModel> Promos { get; set; }
         public DbSet<SpecialOfferModel> SpecialOffers { get; set; }
         public DbSet<Discount> Discounts { get; set; }
-        public DbSet<Order> Order { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -41,6 +41,16 @@ namespace YummyFood.Infrastructure.Persistance
                 .HasOne(o => o.Restaurant)
                 .WithMany()
                 .HasForeignKey(o => o.Id);
+
+            builder.Entity<OrderItem>()
+                .HasOne(oi => oi.Order)
+                .WithMany(o => o.Products)
+                .HasForeignKey(oi => oi.Id);
+
+            builder.Entity<OrderItem>()
+                .HasOne(oi => oi.Dish)
+                .WithMany()
+                .HasForeignKey(oi => oi.Id);
 
             base.OnModelCreating(builder);
         }

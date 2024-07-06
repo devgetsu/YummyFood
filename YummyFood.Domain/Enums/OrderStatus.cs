@@ -8,9 +8,9 @@ namespace YummyFood.Domain.Enums
 {
     public enum OrderStatus
     {
-        Preparing,
-        Cooked,
-        Delivering,
-        Successfull
+        Pending,
+        Accepted,
+        Delivered,
+        Cancelled
     }
 }

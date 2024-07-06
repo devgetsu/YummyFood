@@ -406,18 +406,14 @@ namespace YummyFood.Infrastructure.Migrations
                     b.Property<DateTimeOffset>("ModifiedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<DateTime>("OrderTime")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int>("PaymentMethod")
                         .HasColumnType("integer");
 
-                    b.Property<List<long>>("Products")
-                        .IsRequired()
-                        .HasColumnType("bigint[]");
-
-                    b.Property<decimal>("QuantityPrice")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("RestaurantId")
-                        .HasColumnType("integer");
+                    b.Property<long>("RestaurantId")
+                        .HasColumnType("bigint");
 
                     b.Property<decimal>("ShippingFree")
                         .HasColumnType("numeric");
@@ -425,7 +421,7 @@ namespace YummyFood.Infrastructure.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("TotalPrice")
+                    b.Property<decimal>("TotalAmount")
                         .HasColumnType("numeric");
 
                     b.Property<long>("UserId")
@@ -434,6 +430,25 @@ namespace YummyFood.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Order");
+                });
+
+            modelBuilder.Entity("YummyFood.Domain.Entities.OrderItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("DishId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("OrderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrderItem");
                 });
 
             modelBuilder.Entity("YummyFood.Domain.Entities.Product", b =>
@@ -699,6 +714,25 @@ namespace YummyFood.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("YummyFood.Domain.Entities.OrderItem", b =>
+                {
+                    b.HasOne("YummyFood.Domain.Entities.Order", "Order")
+                        .WithMany("Products")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("YummyFood.Domain.Entities.Product", "Dish")
+                        .WithMany()
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Dish");
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("YummyFood.Domain.Entities.Product", b =>
                 {
                     b.HasOne("YummyFood.Domain.Entities.Category", "Category")
@@ -726,6 +760,11 @@ namespace YummyFood.Infrastructure.Migrations
                     b.Navigation("Addresses");
 
                     b.Navigation("Cards");
+                });
+
+            modelBuilder.Entity("YummyFood.Domain.Entities.Order", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("YummyFood.Domain.Entities.Shop", b =>

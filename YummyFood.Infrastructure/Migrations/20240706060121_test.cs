@@ -365,14 +365,13 @@ namespace YummyFood.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
-                    Status = table.Column<int>(type: "integer", nullable: false),
-                    Products = table.Column<List<long>>(type: "bigint[]", nullable: false),
-                    QuantityPrice = table.Column<decimal>(type: "numeric", nullable: false),
-                    ShippingFree = table.Column<decimal>(type: "numeric", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "numeric", nullable: false),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
-                    RestaurantId = table.Column<int>(type: "integer", nullable: false),
+                    RestaurantId = table.Column<long>(type: "bigint", nullable: false),
+                    ShippingFree = table.Column<decimal>(type: "numeric", nullable: false),
+                    TotalAmount = table.Column<decimal>(type: "numeric", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false),
                     PaymentMethod = table.Column<int>(type: "integer", nullable: false),
+                    OrderTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
@@ -389,6 +388,32 @@ namespace YummyFood.Infrastructure.Migrations
                         name: "FK_Order_Shops_Id",
                         column: x => x.Id,
                         principalTable: "Shops",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderItem",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    OrderId = table.Column<long>(type: "bigint", nullable: false),
+                    DishId = table.Column<long>(type: "bigint", nullable: false),
+                    Quantity = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderItem", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderItem_Order_Id",
+                        column: x => x.Id,
+                        principalTable: "Order",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderItem_Products_Id",
+                        column: x => x.Id,
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -489,10 +514,7 @@ namespace YummyFood.Infrastructure.Migrations
                 name: "Discounts");
 
             migrationBuilder.DropTable(
-                name: "Order");
-
-            migrationBuilder.DropTable(
-                name: "Products");
+                name: "OrderItem");
 
             migrationBuilder.DropTable(
                 name: "Promos");
@@ -502,6 +524,12 @@ namespace YummyFood.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Order");
+
+            migrationBuilder.DropTable(
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Shops");
