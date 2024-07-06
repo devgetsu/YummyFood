@@ -93,6 +93,26 @@ namespace YummyFood.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Order",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Status = table.Column<int>(type: "integer", nullable: false),
+                    Products = table.Column<List<long>>(type: "bigint[]", nullable: false),
+                    QuantityPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    ShippingFree = table.Column<decimal>(type: "numeric", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    PaymentMethod = table.Column<int>(type: "integer", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Order", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Promos",
                 columns: table => new
                 {
@@ -154,7 +174,7 @@ namespace YummyFood.Infrastructure.Migrations
                     Name = table.Column<string>(type: "Text", nullable: true),
                     Letitude = table.Column<long>(type: "bigint", nullable: false),
                     Longitude = table.Column<long>(type: "bigint", nullable: false),
-                    UserId = table.Column<long>(type: "bigint", nullable: false)
+                    UserId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -163,8 +183,7 @@ namespace YummyFood.Infrastructure.Migrations
                         name: "FK_Addresses_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -307,7 +326,7 @@ namespace YummyFood.Infrastructure.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Rate = table.Column<int>(type: "integer", nullable: false),
+                    Rate = table.Column<short>(type: "smallint", nullable: false),
                     AddressId = table.Column<long>(type: "bigint", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Photo = table.Column<string>(type: "text", nullable: false),
@@ -337,10 +356,10 @@ namespace YummyFood.Infrastructure.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Rate = table.Column<int>(type: "integer", nullable: false),
-                    UserAppId = table.Column<long>(type: "bigint", nullable: false),
+                    Rate = table.Column<short>(type: "smallint", nullable: false),
                     Feedback = table.Column<string>(type: "text", nullable: true),
                     ShopId = table.Column<long>(type: "bigint", nullable: false),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
@@ -348,8 +367,8 @@ namespace YummyFood.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comments_AspNetUsers_UserAppId",
-                        column: x => x.UserAppId,
+                        name: "FK_Comments_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -414,9 +433,9 @@ namespace YummyFood.Infrastructure.Migrations
                 column: "ShopId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_UserAppId",
+                name: "IX_Comments_UserId",
                 table: "Comments",
-                column: "UserAppId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
@@ -455,6 +474,9 @@ namespace YummyFood.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Discounts");
+
+            migrationBuilder.DropTable(
+                name: "Order");
 
             migrationBuilder.DropTable(
                 name: "Products");

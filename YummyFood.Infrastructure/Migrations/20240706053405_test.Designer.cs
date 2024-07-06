@@ -13,7 +13,7 @@ using YummyFood.Infrastructure.Persistance;
 namespace YummyFood.Infrastructure.Migrations
 {
     [DbContext(typeof(YummyFoodDbContext))]
-    [Migration("20240706043610_test")]
+    [Migration("20240706053405_test")]
     partial class test
     {
         /// <inheritdoc />
@@ -175,7 +175,7 @@ namespace YummyFood.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("Text");
 
-                    b.Property<long>("UserId")
+                    b.Property<long?>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -354,20 +354,20 @@ namespace YummyFood.Infrastructure.Migrations
                     b.Property<DateTimeOffset>("ModifiedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("Rate")
-                        .HasColumnType("integer");
+                    b.Property<short>("Rate")
+                        .HasColumnType("smallint");
 
                     b.Property<long>("ShopId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("UserAppId")
+                    b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ShopId");
 
-                    b.HasIndex("UserAppId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Comments");
                 });
@@ -396,6 +396,44 @@ namespace YummyFood.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Discounts");
+                });
+
+            modelBuilder.Entity("YummyFood.Domain.Entities.Order", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset>("ModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("PaymentMethod")
+                        .HasColumnType("integer");
+
+                    b.Property<List<long>>("Products")
+                        .IsRequired()
+                        .HasColumnType("bigint[]");
+
+                    b.Property<decimal>("QuantityPrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("ShippingFree")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("YummyFood.Domain.Entities.Product", b =>
@@ -502,8 +540,8 @@ namespace YummyFood.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Rate")
-                        .HasColumnType("integer");
+                    b.Property<short>("Rate")
+                        .HasColumnType("smallint");
 
                     b.Property<int>("Status")
                         .HasColumnType("integer");
@@ -607,9 +645,7 @@ namespace YummyFood.Infrastructure.Migrations
                 {
                     b.HasOne("YummyFood.Domain.Entities.Auth.UserApp", "User")
                         .WithMany("Addresses")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -633,15 +669,15 @@ namespace YummyFood.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("YummyFood.Domain.Entities.Auth.UserApp", "UserApp")
+                    b.HasOne("YummyFood.Domain.Entities.Auth.UserApp", "User")
                         .WithMany()
-                        .HasForeignKey("UserAppId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Shop");
 
-                    b.Navigation("UserApp");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("YummyFood.Domain.Entities.Product", b =>
