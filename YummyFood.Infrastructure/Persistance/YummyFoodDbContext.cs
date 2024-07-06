@@ -27,6 +27,7 @@ namespace YummyFood.Infrastructure.Persistance
         public DbSet<SpecialOfferModel> SpecialOffers { get; set; }
         public DbSet<Discount> Discounts { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

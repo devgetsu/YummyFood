@@ -8,6 +8,7 @@ namespace YummyFood.Application.Abstractions
         DbSet<Shop> Shops { get; set; }
         DbSet<Product> Products { get; set; }
         DbSet<Order> Orders { get; set; }
+        DbSet<OrderItem> OrderItems { get; set; }
         DbSet<CommentModel> Comments { get; set; }
         DbSet<Category> Categories { get; set; }
         DbSet<Address> Addresses { get; set; }
