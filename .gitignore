@@ -397,3 +397,4 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /YummyFood.API/appsettings.json
+/YummyFood.API/appsettings.Development.json
