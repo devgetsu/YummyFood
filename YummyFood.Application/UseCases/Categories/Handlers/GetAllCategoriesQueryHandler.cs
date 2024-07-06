@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,22 +9,21 @@ using System.Threading.Tasks;
 using YummyFood.Application.Abstractions;
 using YummyFood.Application.UseCases.Categories.Queries;
 using YummyFood.Domain.Entities;
-using YummyFood.Domain.Exceptions;
 
 namespace YummyFood.Application.UseCases.Categories.Handlers
 {
-    public class GetCategoryByIdQueryHandler : IRequestHandler<GetCategoryByIdQuery, Category>
+    public class GetAllCategoriesQueryHandler : IRequestHandler<GetAllCategoriesQuery, IEnumerable<Category>>
     {
         private readonly IApplicationDbContext _context;
 
-        public GetCategoryByIdQueryHandler(IApplicationDbContext context)
+        public GetAllCategoriesQueryHandler(IApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task<Category> Handle(GetCategoryByIdQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Category>> Handle(GetAllCategoriesQuery request, CancellationToken cancellationToken)
         {
-            return await _context.Categories.Include(x => x.Products).FirstOrDefaultAsync(x => x.Id == request.Id) ?? throw new _404NotFoundException("Cateogry not found");
+            return await _context.Categories.Include(x => x.Products).ToListAsync(cancellationToken);
         }
     }
 }

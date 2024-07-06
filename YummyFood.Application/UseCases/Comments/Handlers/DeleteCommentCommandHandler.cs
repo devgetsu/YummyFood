@@ -24,7 +24,7 @@ namespace YummyFood.Application.UseCases.Comments.Handlers
             var comment = await _context.Comments.FindAsync(request.Id);
             if (comment == null)
             {
-                return new ResponseModel
+                return new ResponseModel()
                 {
                     IsSuccess = false,
                     Message = "Comment not found.",
@@ -35,7 +35,7 @@ namespace YummyFood.Application.UseCases.Comments.Handlers
             _context.Comments.Remove(comment);
             await _context.SaveChangesAsync(cancellationToken);
 
-            return new ResponseModel
+            return new ResponseModel()
             {
                 IsSuccess = true,
                 Message = "Comment deleted successfully.",

@@ -6,5 +6,7 @@ namespace YummyFood.Domain.Entities
     {
         public string Name { get; set; }
         public string Sticker { get; set; }
+
+        public List<Product> Products { get; set; }
     }
 }

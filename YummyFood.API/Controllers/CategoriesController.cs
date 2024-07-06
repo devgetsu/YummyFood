@@ -33,5 +33,25 @@ namespace YummyFood.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllCateogiesAsync([FromQuery] int pageIndex, [FromQuery] int pageSize, CancellationToken cancellationToken)
+        {
+            var query = new GetAllCategoriesQuery() { PageIndex = pageIndex, PageSize = pageSize };
+
+            var result = await _mediator.Send(query, cancellationToken);
+
+            return Ok(result);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCategoryByIdAsync(long id, CancellationToken cancellationToken)
+        {
+            var command = new DeleteCategoryCommand() { Id = id };
+
+            var result = await _mediator.Send(command, cancellationToken);
+
+            return Ok(result);
+        }
     }
 }

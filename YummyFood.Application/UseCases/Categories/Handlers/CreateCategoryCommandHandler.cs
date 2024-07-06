@@ -27,7 +27,7 @@ namespace YummyFood.Application.UseCases.Categories.Handlers
         public async Task<ResponseModel> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
         {
             var file = request.Sticker;
-            string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "CategoryPhotos");
+            string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "CategoryStickers");
             string fileName = "";
 
             try
@@ -39,7 +39,7 @@ namespace YummyFood.Application.UseCases.Categories.Handlers
                 }
 
                 fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                filePath = Path.Combine(_webHostEnvironment.WebRootPath, "CategoryPhotos", fileName);
+                filePath = Path.Combine(_webHostEnvironment.WebRootPath, "CategoryStickers", fileName);
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await file.CopyToAsync(stream);
@@ -58,7 +58,7 @@ namespace YummyFood.Application.UseCases.Categories.Handlers
             var category = new Category()
             {
                 Name = request.Name,
-                Sticker = "/CategoryPhotos/" + file.FileName,
+                Sticker = "/CategoryStickers/" + file.FileName,
             };
 
             await _context.Categories.AddAsync(category, cancellationToken);
