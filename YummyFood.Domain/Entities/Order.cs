@@ -11,7 +11,9 @@ namespace YummyFood.Domain.Entities
     {
         public OrderStatus Status { get; set; }
         public List<long> Products { get; set; }
-
         public decimal QuantityPrice { get; set; }
+        public decimal ShippingFree { get; set; }
+        public decimal TotalPrice { get; set; }
+        public PaymentMethod PaymentMethod { get; set; }
     }
 }
