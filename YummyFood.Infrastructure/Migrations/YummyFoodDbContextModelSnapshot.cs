@@ -434,7 +434,7 @@ namespace YummyFood.Infrastructure.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("YummyFood.Domain.Entities.Promo", b =>
+            modelBuilder.Entity("YummyFood.Domain.Entities.PromoModel", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -520,7 +520,7 @@ namespace YummyFood.Infrastructure.Migrations
                     b.ToTable("Shops");
                 });
 
-            modelBuilder.Entity("YummyFood.Domain.Entities.SpecialOffer", b =>
+            modelBuilder.Entity("YummyFood.Domain.Entities.SpecialOfferModel", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()

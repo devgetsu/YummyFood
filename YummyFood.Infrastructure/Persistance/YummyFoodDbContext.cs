@@ -27,7 +27,7 @@ namespace YummyFood.Infrastructure.Persistance
         public DbSet<Category> Categories { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Card> Cards { get; set; }
-        public DbSet<Promo> Promos { get; set; }
+        public DbSet<PromoModel> Promos { get; set; }
         public DbSet<SpecialOfferModel> SpecialOffers { get; set; }
         public DbSet<Discount> Discounts { get; set; }
 

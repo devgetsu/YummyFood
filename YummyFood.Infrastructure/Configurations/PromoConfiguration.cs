@@ -9,9 +9,9 @@ using YummyFood.Domain.Entities;
 
 namespace YummyFood.Infrastructure.Configurations
 {
-    public class PromoConfiguration : IEntityTypeConfiguration<Promo>
+    public class PromoConfiguration : IEntityTypeConfiguration<PromoModel>
     {
-        public void Configure(EntityTypeBuilder<Promo> builder)
+        public void Configure(EntityTypeBuilder<PromoModel> builder)
         {
             builder.Property(x => x.Code)
                 .HasMaxLength(10);
