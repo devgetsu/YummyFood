@@ -13,7 +13,7 @@ using YummyFood.Infrastructure.Persistance;
 namespace YummyFood.Infrastructure.Migrations
 {
     [DbContext(typeof(YummyFoodDbContext))]
-    [Migration("20240706060121_test")]
+    [Migration("20240706084440_test")]
     partial class test
     {
         /// <inheritdoc />
@@ -432,7 +432,7 @@ namespace YummyFood.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Order");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("YummyFood.Domain.Entities.OrderItem", b =>
@@ -451,7 +451,7 @@ namespace YummyFood.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OrderItem");
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("YummyFood.Domain.Entities.Product", b =>
@@ -739,7 +739,7 @@ namespace YummyFood.Infrastructure.Migrations
             modelBuilder.Entity("YummyFood.Domain.Entities.Product", b =>
                 {
                     b.HasOne("YummyFood.Domain.Entities.Category", "Category")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -763,6 +763,11 @@ namespace YummyFood.Infrastructure.Migrations
                     b.Navigation("Addresses");
 
                     b.Navigation("Cards");
+                });
+
+            modelBuilder.Entity("YummyFood.Domain.Entities.Category", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("YummyFood.Domain.Entities.Order", b =>

@@ -57,3 +57,4 @@ namespace YummyFood.Application.UseCases.Categories.Handlers
             };
         }
     }
+}

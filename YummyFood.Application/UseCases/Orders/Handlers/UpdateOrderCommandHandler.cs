@@ -33,6 +33,7 @@ namespace YummyFood.Application.UseCases.Orders.Handlers
             }
 
             order.Status = request.Status;
+            order.ModifiedAt = DateTimeOffset.UtcNow;
             await _context.SaveChangesAsync(cancellationToken);
 
             return new ResponseModel()

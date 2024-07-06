@@ -33,7 +33,8 @@ namespace YummyFood.Application.UseCases.Orders.Handlers
                 {
                     DishId = oi.DishId,
                     Quantity = oi.Quantity
-                }).ToList()
+                }).ToList(),
+                CreatedAt = DateTimeOffset.UtcNow,
             };
 
             await _context.Orders.AddAsync(order, cancellationToken);
