@@ -54,5 +54,13 @@ namespace YummyFood.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost("FindTheClosestAddress")]
+        public async Task<IActionResult> FindTheClosestAddressAsync(FindTheClosestAddressCommand command, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(command, cancellationToken);
+
+            return Ok(result);
+        }
     }
 }

@@ -13,8 +13,8 @@ using YummyFood.Infrastructure.Persistance;
 namespace YummyFood.Infrastructure.Migrations
 {
     [DbContext(typeof(YummyFoodDbContext))]
-    [Migration("20240706084440_test")]
-    partial class test
+    [Migration("20240709121422_firstMigration")]
+    partial class firstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -166,11 +166,11 @@ namespace YummyFood.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("Letitude")
-                        .HasColumnType("bigint");
+                    b.Property<float>("Letitude")
+                        .HasColumnType("real");
 
-                    b.Property<long>("Longitude")
-                        .HasColumnType("bigint");
+                    b.Property<float>("Longitude")
+                        .HasColumnType("real");
 
                     b.Property<string>("Name")
                         .HasColumnType("Text");

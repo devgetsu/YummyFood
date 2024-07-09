@@ -163,11 +163,11 @@ namespace YummyFood.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("Letitude")
-                        .HasColumnType("bigint");
+                    b.Property<float>("Letitude")
+                        .HasColumnType("real");
 
-                    b.Property<long>("Longitude")
-                        .HasColumnType("bigint");
+                    b.Property<float>("Longitude")
+                        .HasColumnType("real");
 
                     b.Property<string>("Name")
                         .HasColumnType("Text");
