@@ -79,6 +79,8 @@ namespace YummyFood.Application.UseCases.Shops.Handlers
                 };
 
                 await _context.Addresses.AddAsync(address, cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken);
+
 
                 var shop = new Shop()
                 {
