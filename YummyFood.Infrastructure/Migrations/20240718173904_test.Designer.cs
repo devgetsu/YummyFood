@@ -13,8 +13,8 @@ using YummyFood.Infrastructure.Persistance;
 namespace YummyFood.Infrastructure.Migrations
 {
     [DbContext(typeof(YummyFoodDbContext))]
-    [Migration("20240709121422_firstMigration")]
-    partial class firstMigration
+    [Migration("20240718173904_test")]
+    partial class test
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -175,12 +175,12 @@ namespace YummyFood.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("Text");
 
-                    b.Property<long?>("UserId")
+                    b.Property<long?>("UserAppId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserAppId");
 
                     b.ToTable("Addresses");
                 });
@@ -661,11 +661,10 @@ namespace YummyFood.Infrastructure.Migrations
 
             modelBuilder.Entity("YummyFood.Domain.Entities.Address", b =>
                 {
-                    b.HasOne("YummyFood.Domain.Entities.Auth.UserApp", "User")
+                    b.HasOne("YummyFood.Domain.Entities.Auth.UserApp", null)
                         .WithMany("Addresses")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
+                        .HasForeignKey("UserAppId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("YummyFood.Domain.Entities.Card", b =>

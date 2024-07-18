@@ -50,5 +50,15 @@ namespace YummyFood.API.Controllers
 
             return Ok(result);
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllProductAsync(CancellationToken cancellationToken)
+        {
+            var query = new GetAllProductsQuery() { };
+            var result = await _mediator.Send(query, cancellationToken);
+
+            return Ok(result);
+        }
     }
 }

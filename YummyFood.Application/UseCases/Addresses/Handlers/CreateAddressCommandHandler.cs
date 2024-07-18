@@ -27,7 +27,6 @@ namespace YummyFood.Application.UseCases.Addresses.Handlers
 
                 var addressModel = new Address()
                 {
-                    UserId = request.UserId,
                     Letitude = request.Letitude,
                     Longitude = request.Longitude,
                     Name = request.Name,

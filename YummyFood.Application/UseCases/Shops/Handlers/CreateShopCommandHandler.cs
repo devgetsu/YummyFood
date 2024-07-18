@@ -72,12 +72,20 @@ namespace YummyFood.Application.UseCases.Shops.Handlers
                     };
                 }
 
+                var address = new Address()
+                {
+                    Letitude = request.Letitude,
+                    Longitude = request.Longitude,
+                };
+
+                await _context.Addresses.AddAsync(address, cancellationToken);
+
                 var shop = new Shop()
                 {
                     Rate = 0,
                     Name = request.Name,
                     Status = request.Status,
-                    AddressId = request.AddressId,
+                    AddressId = address.Id,
                     Description = request.Description,
                     PhoneNumber = request.PhoneNumber,
                     Photo = "/ShopPhotos/" + fileName,
@@ -86,6 +94,7 @@ namespace YummyFood.Application.UseCases.Shops.Handlers
                     TimeTableWeekday = request.TimeTableWeekday,
                     CreatedAt = DateTimeOffset.UtcNow
                 };
+
                 await _context.Shops.AddAsync(shop, cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);
 

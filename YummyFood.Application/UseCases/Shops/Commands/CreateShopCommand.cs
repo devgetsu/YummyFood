@@ -8,10 +8,11 @@ namespace YummyFood.Application.UseCases.Shops.Commands
 {
     public class CreateShopCommand : IRequest<ResponseModel>
     {
-        public long AddressId { get; set; }
         public string Name { get; set; }
         public IFormFile Photo { get; set; }
         public string Description { get; set; }
+        public float Letitude { get; set; }
+        public float Longitude { get; set; }
         public string PhoneNumber { get; set; }
         public IFormFile PreviewPhoto { get; set; }
         public string TimeTableWeekday { get; set; }

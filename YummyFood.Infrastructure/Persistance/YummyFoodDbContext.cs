@@ -53,6 +53,11 @@ namespace YummyFood.Infrastructure.Persistance
                 .WithMany()
                 .HasForeignKey(oi => oi.Id);
 
+            builder.Entity<UserApp>()
+                .HasMany(x => x.Addresses)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
+
             base.OnModelCreating(builder);
         }
 
