@@ -43,5 +43,34 @@ namespace YummyFood.Application.Abstractions.AuthServices
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+        public string GenerateTokenAdmin(AdminApp user)
+        {
+            SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWTSettings:Secret"]!));
+            SigningCredentials credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            int expirePeriod = int.Parse(_config["JWTSettings:Expire"]!);
+
+            List<Claim> claims = new List<Claim>()
+            {
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Iat, EpochTime.GetIntDate(DateTime.UtcNow).ToString(CultureInfo.InvariantCulture), ClaimValueTypes.Integer64),
+                new Claim("adminId", user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Surname, user.Email),
+                new Claim(ClaimTypes.Surname, user.PhoneNumber),
+                new Claim(ClaimTypes.Role, user.Role!)
+            };
+
+
+
+            JwtSecurityToken token = new JwtSecurityToken(
+                issuer: _config["JWTSettings:ValidIssuer"],
+                audience: _config["JWTSettings:ValidAudence"],
+                claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(expirePeriod),
+                signingCredentials: credentials);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
     }
 }
