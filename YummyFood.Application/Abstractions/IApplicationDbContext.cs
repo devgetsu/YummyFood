@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using YummyFood.Domain.Entities;
+using YummyFood.Domain.Entities.Auth;
 
 namespace YummyFood.Application.Abstractions
 {
     public interface IApplicationDbContext
     {
+        DbSet<AdminApp> Admins { get; set; }
         DbSet<Shop> Shops { get; set; }
         DbSet<Product> Products { get; set; }
         DbSet<Order> Orders { get; set; }

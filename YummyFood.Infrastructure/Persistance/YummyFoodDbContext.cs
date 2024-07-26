@@ -16,7 +16,7 @@ namespace YummyFood.Infrastructure.Persistance
         {
             Database.Migrate();
         }
-
+        public DbSet<AdminApp> Admins { get; set; }
         public DbSet<Shop> Shops { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<CommentModel> Comments { get; set; }
