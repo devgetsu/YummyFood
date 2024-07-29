@@ -190,10 +190,6 @@ namespace YummyFood.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("text");
@@ -213,6 +209,16 @@ namespace YummyFood.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Admins");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Password = "Admin01!",
+                            PhoneNumber = "990019010",
+                            Role = "SuperAdmin",
+                            UserName = "Super Admin"
+                        });
                 });
 
             modelBuilder.Entity("YummyFood.Domain.Entities.Auth.UserApp", b =>

@@ -28,7 +28,6 @@ namespace YummyFood.Application.UseCases.Admins.Handlers.CommandHandlers
                 var admin = new AdminApp()
                 {
                     Role = request.Role,
-                    Email = request.Email,
                     Password = request.Password,
                     PhoneNumber = request.PhoneNumber,
                     UserName = request.UserName,

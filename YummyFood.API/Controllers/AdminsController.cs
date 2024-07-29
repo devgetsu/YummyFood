@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using YummyFood.Application.Abstractions.AuthServices;
 using YummyFood.Application.UseCases.Admins.Command;
 using YummyFood.Application.UseCases.Admins.Query;
 using YummyFood.Domain.Entities.DTOs;
@@ -13,10 +15,12 @@ namespace YummyFood.API.Controllers
     public class AdminsController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IAuthService _authService;
 
-        public AdminsController(IMediator mediator)
+        public AdminsController(IMediator mediator, IAuthService authService)
         {
             _mediator = mediator;
+            _authService = authService;
         }
 
 
@@ -59,9 +63,21 @@ namespace YummyFood.API.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> AdminLogin()
+        public async Task<IActionResult> AdminLogin(AdminLoginDTO model, CancellationToken cancellation)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
+            var query = new GetAdminByLogin()
+            {
+                PhoneNumber = model.PhoneNumber,
+            };
+
+            var admin = await _mediator.Send(query, cancellation);
+
+            var response = _authService.GenerateTokenAdmin(admin);
+         
+            return Ok(response);
         }
     }
 }

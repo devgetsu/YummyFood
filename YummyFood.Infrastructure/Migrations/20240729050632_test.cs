@@ -21,7 +21,6 @@ namespace YummyFood.Infrastructure.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserName = table.Column<string>(type: "text", nullable: false),
                     Password = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
                     Role = table.Column<string>(type: "text", nullable: false),
                     PhoneNumber = table.Column<string>(type: "text", nullable: false)
                 },
@@ -435,6 +434,11 @@ namespace YummyFood.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Admins",
+                columns: new[] { "Id", "Password", "PhoneNumber", "Role", "UserName" },
+                values: new object[] { 1L, "Admin01!", "990019010", "SuperAdmin", "Super Admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_UserAppId",

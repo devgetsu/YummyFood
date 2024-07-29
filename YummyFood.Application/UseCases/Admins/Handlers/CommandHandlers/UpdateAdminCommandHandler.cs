@@ -36,7 +36,6 @@ namespace YummyFood.Application.UseCases.Admins.Handlers.CommandHandlers
                     };
                 }
 
-                admin.Email = request.Email;
                 admin.Password = request.Password;
                 admin.PhoneNumber = request.PhoneNumber;
                 admin.UserName = request.UserName;

@@ -56,7 +56,6 @@ namespace YummyFood.Application.Abstractions.AuthServices
                 new Claim(JwtRegisteredClaimNames.Iat, EpochTime.GetIntDate(DateTime.UtcNow).ToString(CultureInfo.InvariantCulture), ClaimValueTypes.Integer64),
                 new Claim("adminId", user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Surname, user.Email),
                 new Claim(ClaimTypes.Surname, user.PhoneNumber),
                 new Claim(ClaimTypes.Role, user.Role!)
             };
